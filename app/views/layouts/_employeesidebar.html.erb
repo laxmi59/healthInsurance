@@ -1,0 +1,51 @@
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-icon rotate-n-15">
+            <i class="fas fa-laugh-wink"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">Health Insurance </div>
+    </a>
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <li class="nav-item active">
+      <a class="nav-link" href="<%=welcome_path%>">
+        <i class="fas fa-fw fa-tachometer-alt"></i>
+        <span>Dashboard</span>
+      </a>
+    </li>
+    <hr class="sidebar-divider my-0">
+    <li class="nav-item active">
+      <a class="nav-link" href="<%=employee_path(Current.user.id)%>">
+      <i class="fas fa-fw fa-tachometer-alt"></i>
+        <span>My Account</span>
+      </a>
+    </li>
+    <hr class="sidebar-divider my-0">
+    <li class="nav-item active">
+      <a class="nav-link" href="<%=dependents_path%>">
+      <i class="fas fa-fw fa-tachometer-alt"></i>
+        <span>Dependents</span>
+      </a>
+    </li>
+    <hr class="sidebar-divider my-0">
+    <li class="nav-item active">
+      <div class="nav-details">Your Details</div>
+      <div class="nav-details">
+        <label>Employee Id:</label>
+        <span><input type="text" name="" value="<%=Current.user.employee_id %>" disabled></span>
+      </div>
+      <div class="nav-details">
+        <label>Job Title:</label>
+        <span><input type="text" name="" value="<%=Current.user.job_title %>" disabled></span>
+      </div>
+    </li>
+    <li class="nav-item active">
+      <div class="nav-details">Marital Status</div>
+      <div class="nav-details">
+        <!-- <span><input type="text" name="" value="<%#=Current.user.marital_status_id %>" disabled></span> -->
+        <span><input type="checkbox" checked data-toggle="toggle" data-on="Single" data-off="Married" data-onstyle="success" data-offstyle="danger"></span>
+      </div>
+    </li>
+</ul>

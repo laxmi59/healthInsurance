@@ -1,0 +1,2 @@
+class EmployeeCycle < ApplicationRecord
+end

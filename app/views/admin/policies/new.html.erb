@@ -1,0 +1,23 @@
+<%= render "layouts/errors", object: @policy %>
+<h1>New Policy</h1>
+<div class="card o-hidden border-0 shadow-lg my-5">
+  <div class="card-body p-0">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="p-5">
+          <%= form_for @policy, class:'user', url: admin_policies_path do |f| %>
+            <div class="form-group">
+            <%= f.label 'name' %><br>
+            <%= f.text_field :name, class:"form-control form-control-user" %>
+            <%= f.hidden_field :last_modified_by, :value => Current.user.employee_name  %>
+            </div>
+            <div class="form-group">
+            <%= f.submit 'Submit', class: "btn btn-primary btn-user btnSub" %>
+            <%= link_to "Cancel", admin_policies_path, class: "btn btn-primary btn-user btnSub" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

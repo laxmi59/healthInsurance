@@ -1,0 +1,173 @@
+non dependent tables
+action_type
+  INSERT INTO `action_type` VALUES (1,'Added'),(3,'Deleted'),(2,'Edited'),(4,'No Change');
+
+  rails g model ActionType name:string
+  ActionType.create :name => "Added"
+  ActionType.create :name => "Edited"
+  ActionType.create :name => "Deleted"
+  ActionType.create :name => "No Change"
+--------------------------------------------------------------------------------------------------------------
+blood_group
+  INSERT INTO `blood_group` VALUES (5,'A-'),(1,'A+'),(7,'AB-'),(3,'AB+'),(6,'B-'),(2,'B+'),(8,'O-'),(4,'O+');
+
+  rails g model BloodGroup name:string
+  BloodGroup.insert_all([
+    { id: 1, name: "A+", created_at: Time.now, updated_at: Time.now},
+    { id: 2, name: "B+", created_at: Time.now, updated_at: Time.now}
+    { id: 3, name: "AB+", created_at: Time.now, updated_at: Time.now},
+    { id: 4, name: "O+", created_at: Time.now, updated_at: Time.now}
+    { id: 5, name: "A-", created_at: Time.now, updated_at: Time.now},
+    { id: 6, name: "B-", created_at: Time.now, updated_at: Time.now}
+    { id: 6, name: "AB-", created_at: Time.now, updated_at: Time.now},
+    { id: 8, name: "O-", created_at: Time.now, updated_at: Time.now}
+  ])
+
+---------------------------------------------------------------------------------------
+Role
+INSERT INTO `role` VALUES (1,'admin'),(2,'user');
+
+  rails g model Role name:string
+  Role.insert_all([
+    { id: 1, name: "Admin", created_at: :local, updated_at:  :local},
+    { id: 2, name: "Employee", created_at: :local, updated_at:  :local}
+  ])
+----------------------------------------------------------------------------------------------
+location
+INSERT INTO `location` VALUES (3,'Bengaluru'),(2,'Chennai'),(1,'Hyderabad');
+
+  rails g model Location name:string
+  Location.insert_all([
+    { id: 1, name: "Hyderabad", created_at: Time.now, updated_at: Time.now},
+    { id: 2, name: "Chennai", created_at: Time.now, updated_at: Time.now},
+    { id: 3, name: "Bengaluru", created_at: Time.now, updated_at: Time.now}
+  ])
+-------------------------------------------------------------------------------------------------
+marital_status
+INSERT INTO `marital_status` VALUES (2,'Married'),(1,'Single');
+
+rails g model MaritalStatus name:string
+MaritalStatus.insert_all([
+  { id: 1, name: "Single", created_at: Time.now, updated_at: Time.now},
+  { id: 2, name: "Married", created_at: Time.now, updated_at: Time.now}
+])
+-------------------------------------------------------------------------------------------------------
+policies
+INSERT INTO `policies` VALUES (1,'Group Medical Insurance Policy',NULL,NULL,NULL),(2,'Group Personal Accident Policy',NULL,NULL,NULL);
+
+rails g model Policy name:string last_modified_by:string
+Policy.insert_all([
+  { id: 1, name: "Group Medical Insurance Policy", last_modified_by: "", created_at: Time.now, updated_at: Time.now},
+  { id: 2, name: "Group Personal Accident Policy", last_modified_by: "", created_at: Time.now, updated_at: Time.now}
+])
+--------------------------------------------------------------------------------------------------
+relationship
+INSERT INTO `relationship` VALUES (1,'Father',_binary ''),(2,'Mother',_binary ''),(3,'Father In Law',_binary '\0'),(4,'Mother In Law',_binary '\0'),(5,'Spouse',_binary ''),(6,'Daughter',_binary ''),(7,'Son',_binary '');
+
+rails g model Relationship name:string
+Relationship.insert_all([
+  { id: 1, name: "Father", created_at: Time.now, updated_at: Time.now},
+  { id: 2, name: "Mother", created_at: Time.now, updated_at: Time.now},
+  { id: 3, name: "Father In Law", created_at: Time.now, updated_at: Time.now},
+  { id: 4, name: "Mother In Law", created_at: Time.now, updated_at: Time.now},
+  { id: 5, name: "Spouse", created_at: Time.now, updated_at: Time.now},
+  { id: 6, name: "Daughter", created_at: Time.now, updated_at: Time.now},
+  { id: 7, name: "Son", created_at: Time.now, updated_at: Time.now}
+])
+-----------------------------------------------------------------------------------------------------
+cycle
+rails g model Cycle created_by:string
+
+create_table :cycles do |t|
+  t.string :created_by
+  t.string :last_modified_by
+  t.integer :roll_out
+  t.integer :status
+  t.string :cycle_year
+  t.integer :policy_id
+  t.integer :location_id
+  t.integer :isCurrent
+  t.references  :location, foreign_key: { to_table: :locations}, index: true
+  t.references  :policy, foreign_key: { to_table: :policies}, index: true
+
+
+  t.timestamps
+
+
+  CYCLEYEAR = ['2021-22', '2022-23','2023-24'].freeze
+  belongs_to :policy
+
+--------------------------------------------------------------------------------------------------------
+employee
+rails g model Employee employee_name:string
+
+t.string :employee_name
+t.string :phone_number
+t.integer :role_id
+t.integer :is_active
+t.string :last_modified_by
+t.string :email
+t.string :password_digest
+t.integer :employee_id
+t.integer :blood_group_id
+t.integer :location_id
+t.date :dob
+t.references  :blood_group_id, foreign_key: { to_table: :blood_groups}, index: true
+t.references  :location_id, foreign_key: { to_table: :locations}, index: true
+t.references  :role_id, foreign_key: { to_table: :roles}, index: true
+t.timestamps
+---------------------------------------------------------------------------------------------------------
+dependent
+rails g model Dependent dependent_name:string
+t.string :dependent_name
+t.integer :relationship_id
+t.date  :dob
+t.integer :is_active
+t.integer :employee_id
+t.string :last_modified_by
+t.string :created_by
+t.integer :cycle_id
+t.integer :action_type_id
+t.integer :policy_id
+t.references  :cycle_id, foreign_key: { to_table: :cycles}, index: true
+t.references  :action_type_id, foreign_key: { to_table: :action_types}, index: true
+t.references  :employee_id, foreign_key: { to_table: :employes}, index: true
+t.references  :policy_id, foreign_key: { to_table: :policies}, index: true
+t.references  :relationship_id, foreign_key: { to_table: :relationships}, index: true
+---------------------------------------------------------------------------------------------------
+employee_cycle
+rails g model EmployeeCycle employee_id:integer
+
+t.integer :employee_id
+t.integer :top_up_id
+t.integer :marital_status_id
+t.integer :cycle_id
+t.integer :policy_id
+t.string :last_modified_by
+t.integer :is_opted
+t.references  :policy_id, foreign_key: { to_table: :policies}, index: true
+t.references  :top_up_id, foreign_key: { to_table: :top_ups}, index: true
+t.references  :marital_status_id, foreign_key: { to_table: :marital_statuses}, index: true
+t.references  :employee_id, foreign_key: { to_table: :employees}, index: true
+t.references  :cycle_id, foreign_key: { to_table: :cycles}, index: true
+t.timestamps
+--------------------------------------------------------------------------
+top_up
+rails g model TopUp coverage:integer
+
+t.integer :amount_deductable
+t.integer :cycle_id
+t.string :created_by
+t.string :last_modified_by
+t.integer :location_id
+t.string :description
+t.references  :cycle, foreign_key: { to_table: :cycles}, index: true
+t.references  :location, foreign_key: { to_table: :locations}, index: true
+------------------------------------------------------------------------
+pending
+
+
+dependent
+employee
+employee_cycle
+top_up

@@ -1,0 +1,43 @@
+<%= render "layouts/errors", object: @emp %>
+<h1>Update Personal Details</h1>
+<div class="card o-hidden border-0 shadow-lg my-5">
+  <div class="card-body p-0">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="p-5">
+          <%= form_for @emp, url: update_personal_employee_path(@emp.id) do |f| %>
+            <%= f.hidden_field :last_modified_by, :value => Current.user.employee_name  %>
+            <div class="form-group">
+              <%= f.label 'Name' %><br>
+              <%= f.text_field :employee_name, class:"form-control form-control-user"  %>
+            </div>
+            <div class="form-group">
+              <%= f.label 'Gender' %>
+              <%= f.collection_radio_buttons(:gender_id, Gender.all, :id, :name) do |b|
+                b.label("data-value": b.value, class: "radbtngen") { b.radio_button+"  " + b.text }
+              end
+              %>
+              <%#= f.select "gender", options_from_collection_for_select(Gender.all, "id", "name", f.object.gender), include_blank: 'select' %>
+            </div>
+            <div class="form-group">
+              <%= f.label 'Date of Birth' %>
+              <%= f.date_field :dob, class:"form-control form-control-user"  %>
+            </div>
+            <div class="form-group">
+              <%= f.label 'Marital Status' %>
+              <%= f.select "marital_status_id", options_from_collection_for_select(MaritalStatus.all, "id", "name", f.object.marital_status_id), include_blank: 'select' %>
+            </div>
+            <div class="form-group">
+              <%= f.label 'Blood Group' %>
+              <%= f.select "blood_group_id", options_from_collection_for_select(BloodGroup.all, "id", "name", f.object.blood_group_id), include_blank: 'select' %>
+            </div>
+            <div class="form-group">
+              <%= f.submit 'Submit', class: "btn btn-primary btn-user btnSub" %>
+              <%= link_to "Cancel", employee_path, class: "btn btn-primary btn-user btnSub" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

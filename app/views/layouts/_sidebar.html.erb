@@ -1,0 +1,71 @@
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-icon rotate-n-15">
+            <i class="fas fa-laugh-wink"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">Health Insurance </div>
+    </a>
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <% if Current.user &&Current.user.role_id == 1 %>
+      <li class="nav-item active">
+        <a class="nav-link" href="<%=admin_dashboard_path%>">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+      <%#= link_to "Health Insurance", admin_dashboard_path, class:"navbar-brand" %>
+    <% else %>
+      <li class="nav-item active">
+        <a class="nav-link" href="<%=welcome_path%>">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+      <%#= link_to "Health Insurance", welcome_path, class:"navbar-brand" %>
+    <% end %>
+      <hr class="sidebar-divider my-0">
+      <li class="nav-item active">
+        <a class="nav-link" href="<%=admin_employees_path%>">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Employees</span>
+        </a>
+      </li>
+      <hr class="sidebar-divider my-0">
+      <li class="nav-item active">
+        <a class="nav-link" href="<%=admin_policies_path%>">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Policies</span>
+        </a>
+      </li>
+      <hr class="sidebar-divider my-0">
+      <li class="nav-item active">
+        <a class="nav-link" href="<%=admin_cycles_path%>">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Cycles</span>
+        </a>
+      </li>
+      <hr class="sidebar-divider my-0">
+      <li class="nav-item active">
+        <a class="nav-link" href="<%=admin_top_ups_path%>">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Top Ups</span>
+        </a>
+      </li>
+</ul>
+
+
+
+<%# if Current.user && Current.user.role_id == 1 %>
+<!-- <div class="sidebar">
+  <ul class="nav nav-sidebar">
+  <li><h4 class="site_title">Health Insurance</h4></li>
+  <li><%= link_to "Dashboard", admin_dashboard_path %></li>
+  <li><%= link_to "Employees", admin_employees_path %></li>
+  <li><%= link_to "Policies", admin_policies_path %></li>
+  <li><%= link_to "Cycle Management", "#" %></li>
+  </ul>
+</div> -->
+<%# end %>

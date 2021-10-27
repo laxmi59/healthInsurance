@@ -1,0 +1,54 @@
+<table width="100%"><tr><td><h1>TopUp</h1></td>
+<td class="float-right"><%= link_to "Add New TopUp", new_admin_top_up_path, class: "btn btn-primary btn-user btn-block" %></td>
+</tr></table>
+<div class="card shadow mb-4">
+  <div class="card-body">
+      <div class="table-responsive">
+        <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+          <div class="row">
+            <div class="col-sm-12">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>Coverage</th>
+                  <th>Amount Deductable</th>
+                  <th>Cycle</th>
+                  <th>Created By</th>
+                  <th>Modified By</th>
+                  <th>Location</th>
+                  <th>Description</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% if @topups.size() != 0 %>
+                  <% @topups.each do |topup| %>
+                  <tr>
+                    <td><%= topup.coverage %></td>
+                    <td><%= topup.amount_deductable%></td>
+                    <td><%= topup.cycle.cycle_year%></td>
+                    <td><%= topup.created_by%></td>
+                    <td><%= topup.last_modified_by%></td>
+                    <td><%= topup.location.name%></td>
+                    <td><%= topup.description%></td>
+                    <td>
+                      <%= link_to "View", admin_top_up_path(topup.id) %>
+                      <div class="actions-divider"></div>
+                      <%= link_to "Edit", admin_top_up_path(topup.id) %>
+                      <%#= link_to "Delete", admin_policy_cycle_path(cycle.id), method: :delete, data: { confirm: 'Are you sure?' } %>
+                    </td>
+                  </tr>
+                  <% end %>
+                <% else %>
+                <tr>
+                  <td colspan="8" align="center">No Records Found</td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

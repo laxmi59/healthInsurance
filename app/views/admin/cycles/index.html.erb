@@ -1,0 +1,58 @@
+<table width="100%"><tr><td><h1>Cycles</h1></td>
+<td class="float-right"><%= link_to "Add New Cycle", new_admin_cycle_path, class: "btn btn-primary btn-user btn-block" %></td>
+</tr></table>
+<div class="card shadow mb-4">
+  <div class="card-body">
+      <div class="table-responsive">
+        <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+          <div class="row">
+            <div class="col-sm-12">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>Created By</th>
+                  <th>Modified By</th>
+                  <th>Rollout</th>
+                  <th>Cycle Year</th>
+                  <th>Provider Name</th>
+                  <th>Location</th>
+                  <th>IsCurrent</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% if @cycles.size() != 0 %>
+                  <% @cycles.each do |cycle| %>
+                  <tr>
+                    <td><%= cycle.created_by ? cycle.created_by : "N/A" %></td>
+                    <td><%= cycle.last_modified_by ? cycle.last_modified_by : "N/A" %></td>
+                    <td><%= cycle.roll_out == 1 ? "No" : "Yes" %></td>
+                    <td><%= cycle.cycle_year ? cycle.cycle_year : "N/A" %></td>
+                    <td><%= cycle.policy.name ? cycle.policy.name : "N/A" %></td>
+                    <td><%= cycle.location.name ? cycle.location.name : "N/A" %></td>
+                    <td><%= cycle.isCurrent == 1 ? "Yes" : "No"%></td>
+                    <td><%= cycle.status == 1 ? "Active" : "In Active"%></td>
+                    <td>
+                      <%= link_to "View", admin_cycle_path(cycle.id) %>
+                      <div class="actions-divider"></div>
+                      <%= link_to "Edit", edit_admin_cycle_path(cycle.id) %>
+                      <div class="actions-divider"></div>
+                      <%#= link_to "Top Ups", admin_cycle_top_ups_path(cycle.policy_id,cycle.id) %>
+                      <%= link_to "Rollout", "#"%>
+                    </td>
+                  </tr>
+                  <% end %>
+                <% else %>
+                <tr>
+                  <td colspan="8" align="center">No Records Found</td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

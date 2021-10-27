@@ -1,0 +1,51 @@
+<%= render "layouts/errors", object: @topup %>
+<h1>Add TopUp</h1>
+<div class="card o-hidden border-0 shadow-lg my-5">
+  <div class="card-body p-0">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="p-5">
+          <%= form_for @topup, class:'user', url: admin_top_ups_path  do |f| %>
+          <div class="form-group">
+            <%= f.label 'created_by' %>: <span><%=Current.user.employee_name%></span>
+            <%= f.hidden_field :created_by, :value => Current.user.employee_name %>
+          </div>
+          <div class="form-group">
+            <%= f.label 'last_modified_by' %>: <span><%=Current.user.employee_name%></span>
+            <%= f.hidden_field :last_modified_by, :value => Current.user.employee_name  %>
+          </div>
+          <!-- <div class="form-group">
+            <%#= f.label 'cycle_year' %>: <span><%#= @cycle.cycle_year %></span>
+            <%#= f.hidden_field :cycle_id, :value => @cycle.id %>
+          </div> -->
+          <div class="form-group">
+            <%= f.label 'cycle_year' %>
+            <%= f.select "cycle_id", options_from_collection_for_select(@cycles, "id", "cycle_year"), include_blank: 'select' %>
+          </div>
+          <div class="form-group">
+            <%= f.label 'coverage' %>
+            <%= f.text_field :coverage, class:"form-control form-control-user" %>
+          </div>
+          <div class="form-group">
+            <%= f.label 'amount_deductable' %>
+            <%= f.text_field :amount_deductable, class:"form-control form-control-user" %>
+          </div>
+          <div class="form-group">
+            <%= f.label 'location_id' %>
+            <%= f.select "location_id", options_from_collection_for_select(Location.all, "id", "name"), include_blank: 'select' %>
+          </div>
+          <div class="form-group">
+            <%= f.label 'description' %>
+            <%= f.text_field :description, class:"form-control form-control-user" %>
+          </div>
+          <p>&nbsp;</p>
+          <div class="form-group">
+            <%= f.submit 'Submit', class: "btn btn-primary btn-user btnSub" %>
+            <%= link_to "Cancel", admin_top_ups_path, class: "btn btn-primary btn-user btnSub" %>
+          </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

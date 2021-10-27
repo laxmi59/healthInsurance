@@ -1,0 +1,49 @@
+<h1>Dependent Details</h1>
+<%#= puts @dependent.inspect %>
+<div class="card o-hidden border-0 shadow-lg my-5">
+  <div class="card-body p-0">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="p-5">
+          <div class="form-group">
+            <label>Dependent Name</label>
+            <span><%= @dependent.dependent_name ? @dependent.dependent_name : "N/A" %></span>
+          </div>
+          <div class="form-group">
+            <label>Last Modified</label>
+            <span><%= @dependent.last_modified_by ? @dependent.last_modified_by : "N/A" %></span>
+          </div>
+          <div class="form-group">
+            <label>Created</label>
+            <span><%= @dependent.created_by ? @dependent.created_by : "N/A" %></span>
+          </div>
+          <div class="form-group">
+            <label>Status</label>
+            <span><%= @dependent.is_active == 1 ? "Active" : "In Active" %></span>
+          </div>
+          <div class="form-group">
+            <label>Relationship</label>
+            <span><%= @dependent.relationship_id ? @dependent.relationship.name : "N/A" %></span>
+          </div>
+          <div class="form-group">
+            <label>Date of Birth</label>
+            <span><%= @dependent.dob ? @dependent.dob : "N/A" %></span>
+          </div>
+          <div class="form-group">
+            <label>Policy</label>
+            <span><%= @dependent.policy_id ? @dependent.policy.name : "N/A" %></span>
+          </div>
+          <div class="form-group">
+            <label>Cycle</label>
+            <span><%= @dependent.cycle_id ? @dependent.cycle.name : "N/A" %></span>
+          </div>
+
+          <div class="form-group">
+            <%= link_to 'Edit', edit_dependent_path(@dependent.id), class: "btn btn-primary btn-user btnSub" %>
+            <%= link_to "Cancel", dependents_path, class: "btn btn-primary btn-user btnSub" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

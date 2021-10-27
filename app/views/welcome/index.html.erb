@@ -1,0 +1,101 @@
+<div class="card o-hidden border-0 shadow-lg my-5">
+  <div class="card-body p-0">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="p-5">
+        <% @policy.each do |pol|%>
+          <table><tr><td><h1><%= pol.name %> (<%= pol.cycle_year%>)</h1></td></tr></table>
+        <% end %>
+        <table width="100%">
+          <tr>
+            <th><label>opt in</label></th>
+            <th><label>TopUp Amount</label></th>
+          </tr>
+          <tr>
+            <td>
+              <div class="btn-group" id="toggle_event_editing">
+              	<button type="button" class="btn btn-primary locked_active">OFF</button>
+              	<button type="button" class="btn btn-secondary unlocked_inactive">ON</button>
+              </div>
+            </td>
+            <td>
+              <%= form_with model: @emptopup, url: sign_up_path do |f| %>
+                <%= f.hidden_field :employee_id, :value => Current.user.id  %>
+                <%= f.hidden_field :marital_status_id, :value => Current.user.marital_status_id  %>
+                <%= f.hidden_field :is_opted, :value => "0", id: "optinsurance"  %>
+                <% @policy.each do |etp|%>
+                  <%= f.hidden_field :cycle_id, :value => etp.cycleId  %>
+                  <%= f.hidden_field :policy_id, :value => etp.policyId  %>
+                <% end %>
+                <%= f.hidden_field :last_modified_by, :value => Current.user.employee_name  %>
+                <div class="form-group">
+                  <%= f.select "top_up_id", options_from_collection_for_select(TopUp.all, "id", "coverage"),{include_blank: true},  {disabled: true} %>
+                </div>
+              <% end %>
+            </td>
+          </tr>
+        </table>
+        <p>&nbsp;</p>
+        <div class="card-deck">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Father</h5>
+              <div class="table-content">
+                  <table class="table table-borded table-responsive table-striped " id="table-list">
+                      <thead class="table-dark">
+                          <tr>
+                              <th>Name</th>
+                              <th>Dob</th>
+                              <th>Action</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                              <td><%=@dependent.dependent_name%></td>
+                              <td><%=@dependent.dob%></td>
+                              <td><%#= link_to "edit", edit_dependent_path(@dependent.id), class: "btn btn-mini", remote: true %></td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Mother</h5>
+              <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+$('#toggle_event_editing button').click(function(){
+
+	if($(this).hasClass('locked_active') || $(this).hasClass('unlocked_inactive')){
+		/* code to do when unlocking */
+        $("#top_up_id").prop("disabled", false);
+        $("#optinsurance").val(0);
+	}else{
+		/* code to do when locking */
+         //$("#coverageselect").prop("disabled", false);
+         $("#top_up_id").prop("disabled", true);
+         $("#optinsurance").val(1);
+	}
+
+	/* reverse locking status */
+	$('#toggle_event_editing button').eq(0).toggleClass('locked_inactive locked_active btn-secondary btn-primary');
+	$('#toggle_event_editing button').eq(1).toggleClass('unlocked_inactive unlocked_active btn-primary btn-secondary');
+});
+</script>

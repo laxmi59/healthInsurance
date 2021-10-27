@@ -1,0 +1,42 @@
+<h1>Edit Cycle</h1>
+<div class="card o-hidden border-0 shadow-lg my-5">
+  <div class="card-body p-0">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="p-5">
+          <%= form_for @cycle, class:'user', url: admin_cycles_path  do |f| %>
+          <div class="form-group">
+            <%= f.label 'created_by' %>: <span>Admin</span>
+            <%= f.hidden_field :created_by, :value => "Admin" %>
+          </div>
+          <div class="form-group">
+            <%= f.label 'last_modified_by' %>: <span>Admin</span>
+            <%= f.hidden_field :last_modified_by, :value => "Admin"  %>
+            <%#= f.hidden_field :last_modified_by, :value => "Admin"  %>
+          </div>
+          <!-- <div class="form-group">
+            <%#= f.label 'provider_name' %>: <span><%#= @policy.name %></span>
+          </div> -->
+          <div class="form-group">
+            <%= f.label 'cycle_year' %>
+            <%= f.select :cycle_year, Admin::CyclesHelper::CYCLEYEAR, include_blank: 'Select'%>
+          </div>
+          <div class="form-group">
+            <%= f.label 'policy_id' %>
+            <%= f.select "policy_id", options_from_collection_for_select(Policy.all, "id", "name", f.object.policy_id), include_blank: 'select', class:"form-control form-control-user" %>
+          </div>
+          <div class="form-group">
+            <%= f.label 'location_id' %>:
+            <%= f.select "location_id", options_from_collection_for_select(Location.all, "id", "name", f.object.location_id), include_blank: 'select' %>
+          </div>
+          <p>&nbsp;</p>
+          <div class="form-group">
+            <%= f.submit 'Submit', class: "btn btn-primary btn-user btnSub" %>
+            <%= link_to "Cancel", admin_cycles_path, class: "btn btn-primary btn-user btnSub" %>
+          </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

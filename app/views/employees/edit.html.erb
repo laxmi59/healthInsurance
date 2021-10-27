@@ -1,0 +1,27 @@
+<%= render "layouts/errors", object: @emp %>
+<h1>Update Contact Details</h1>
+<div class="card o-hidden border-0 shadow-lg my-5">
+  <div class="card-body p-0">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="p-5">
+          <%= form_for @emp, url: employee_path do |f| %>
+            <%= f.hidden_field :last_modified_by, :value => Current.user.employee_name  %>
+            <div class="form-group">
+              <%= f.label 'Mobile Number' %><br>
+              <%= f.text_field :phone_number, class:"form-control form-control-user"  %>
+            </div>
+            <div class="form-group">
+              <%= f.label 'Location' %><br>
+              <%= f.select "location_id", options_from_collection_for_select(Location.all, "id", "name", f.object.location_id), include_blank: 'select' %>
+            </div>
+            <div class="form-group">
+              <%= f.submit 'Submit', class: "btn btn-primary btn-user btnSub" %>
+              <%= link_to "Cancel", employee_path, class: "btn btn-primary btn-user btnSub" %>
+            </div>
+            <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

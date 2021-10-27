@@ -1,0 +1,41 @@
+<table width="100%"><tr><td><h1>Policies</h1></td>
+<td class="float-right"><%= link_to "Add New Policy", new_admin_policy_path, class: "btn btn-primary btn-user btn-block" %></td>
+</tr></table>
+<div class="card shadow mb-4">
+  <div class="card-body">
+      <div class="table-responsive">
+        <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+          <div class="row">
+            <div class="col-sm-12">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Last Modified</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% if @policies.size() != 0 %>
+                  <% @policies.each do |policy| %>
+                  <tr>
+                    <td><%= policy.name ? policy.name : "N/A" %></td>
+                    <td><%= policy.last_modified_by ? policy.last_modified_by : "N/A" %></td>
+                    <td>
+                      <%= link_to "Delete", admin_policy_path(policy.id), method: :delete, data: { confirm: 'Are you sure?' } %>
+                    </td>
+                  </tr>
+                  <% end %>
+                <% else %>
+                <tr>
+                  <td colspan="3" align="center">No Records Found</td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+</div>

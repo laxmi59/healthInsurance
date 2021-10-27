@@ -1,0 +1,11 @@
+
+
+<div class="form-group">
+<%= f.label 'policy' %><br>
+<%= f.select "policy_id", options_from_collection_for_select(Policy.joins(:cycles).where("cycles.cycle_year like ?","#{Time.now.year}-#{Time.now.next_year.strftime('%y')}"), "id", "name"), include_blank: 'select', id: "policy_id", class:"form-control form-control-user" %>
+</div>
+<div class="form-group">
+<%= f.label 'cycle' %>
+<%= f.grouped_collection_select :cycle_id, Policy.order(:name), :cycles, :name, :id, :cycle_year, include_blank: true %>
+
+</div>

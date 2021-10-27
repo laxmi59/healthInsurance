@@ -1,0 +1,53 @@
+<table width="100%"><tr><td><h1>Dependents</h1></td>
+<td class="float-right"><%= link_to "Add New Dependent", new_dependent_path, class: "btn btn-primary btn-user btn-block" %></td>
+</tr></table>
+<div class="card shadow mb-4">
+  <div class="card-body">
+      <div class="table-responsive">
+        <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+          <div class="row">
+            <div class="col-sm-12">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>Dependent Name</th>
+                  <th>Relationship</th>
+                  <th>Date of Birth</th>
+                  <th>Status</th>
+                  <th>Cycle</th>
+                  <th>Policy</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% if @dependents.size() != 0 %>
+                  <% @dependents.each do |dependent| %>
+                  <tr>
+                    <td><%= dependent.dependent_name ? dependent.dependent_name : "N/A" %></td>
+                    <td><%= dependent.relationship_id ? dependent.relationship.name : "N/A" %></td>
+                    <td><%= dependent.dob ? dependent.dob : "N/A" %></td>
+                    <td><%= dependent.is_active == 1 ? "Active" : "In Active" %></td>
+                    <td><%= dependent.cycle_id ? dependent.cycle.name : "N/A" %></td>
+                    <td><%= dependent.policy_id ? dependent.policy.name : "N/A" %></td>
+                    <td>
+                      <%= link_to "View", dependent_path(dependent.id) %>
+                      <div class="actions-divider"></div>
+                      <%= link_to "Edit", edit_dependent_path(dependent.id) %>
+                      <div class="actions-divider"></div>
+                      <%= link_to "Delete", dependent_path(dependent.id), method: :delete, data: { confirm: 'Are you sure?' } %>
+                    </td>
+                  </tr>
+                  <% end %>
+                <% else %>
+                <tr>
+                  <td colspan="7" align="center">No Records Found</td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+</div>

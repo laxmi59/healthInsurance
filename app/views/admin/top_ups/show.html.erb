@@ -1,0 +1,43 @@
+<h1>TopUp</h1>
+<div class="card o-hidden border-0 shadow-lg my-5">
+  <div class="card-body p-0">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="p-5">
+          <div class="form-group">
+            <label>Coverage:</label>
+            <span><%= @topup.coverage ? @topup.coverage : "N/A" %></span>
+          </div>
+          <div class="form-group">
+            <label>Amount Deductable:</label>
+            <span><%= @topup.amount_deductable ? @topup.amount_deductable : "N/A" %></span>
+          </div>
+          <div class="form-group">
+            <label>Cycle:</label>
+            <span><%= @topup.cycle.cycle_year ? @topup.cycle.cycle_year : "N/A" %></span>
+          </div>
+          <div class="form-group">
+            <label>Created By:</label>
+            <span><%= @topup.created_by ? @topup.created_by : "N/A" %></span>
+          </div>
+          <div class="form-group">
+            <label>Modified By:</label>
+            <span><%= @topup.last_modified_by ? @topup.last_modified_by : "N/A" %></span>
+          </div>
+          <div class="form-group">
+            <label>Description:</label>
+            <span><%= @topup.description ? @topup.description : "N/A" %></span>
+          </div>
+          <div class="form-group">
+            <label>Location:</label>
+            <span><%= @topup.location.name ? @topup.location.name : "N/A" %></span>
+          </div>
+          <div class="form-group">
+            <%= link_to "Edit", edit_admin_top_up_path(@topup.id), class: "btn btn-primary btn-user btnSub" %>
+            <%= link_to "Cancel", admin_top_ups_path, class: "btn btn-primary btn-user btnSub" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,41 @@
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+  <ul class="navbar-nav ml-auto">
+    <% if Current.user %>
+        <li class="nav-item no-arrow"><%= Current.user.email %></li>
+        <div class="topbar-divider d-none d-sm-block"></div>
+        <li class="nav-item no-arrow"><%= link_to 'Edit Password', "#" %></li>
+        <div class="topbar-divider d-none d-sm-block"></div>
+        <li class="nav-item no-arrow"><%= button_to 'logout', logout_path, method: :delete %></li>
+    <% else %>
+        <!-- <li class="nav-item no-arrow"><%= link_to 'Sign Up', sign_up_path %></li>
+        <div class="topbar-divider d-none d-sm-block"></div> -->
+        <li class="nav-item no-arrow"><%= link_to 'Login', sign_in_path %></li>
+    <% end %>
+  </ul>
+</nav>
+
+
+<!-- <header class="container">
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class=navbar-header">
+        <% if Current.user && Current.user.role_id == 1 %>
+          <%= link_to "Health Insurance", admin_dashboard_path, class:"navbar-brand" %>
+        <% else %>
+          <%= link_to "Health Insurance", welcome_path, class:"navbar-brand" %>
+        <% end %>
+      </div>
+
+<ul class="nav navbar-nav navbar-right">
+  <% if Current.user %>
+      <li><%= Current.user.email %></li>
+      <li><%= link_to 'Edit Password', "#" %></li>
+      <li><%= button_to 'logout', logout_path, method: :delete %></li>
+  <% else %>
+      <li><%= link_to 'Sign Up', sign_up_path %></li>
+      <li><%= link_to 'Login', sign_in_path %></li>
+  <% end %>
+  </ul>
+</div>
+</nav>
+</header> -->

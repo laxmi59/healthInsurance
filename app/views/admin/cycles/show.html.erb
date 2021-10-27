@@ -1,0 +1,47 @@
+<h1>Cycles</h1>
+<div class="card o-hidden border-0 shadow-lg my-5">
+  <div class="card-body p-0">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="p-5">
+          <div class="form-group">
+            <label>Created</label>
+            <span><%= @cycle.created_by ? @cycle.created_by : "N/A" %></span>
+          </div>
+          <div class="form-group">
+            <label>Last Modified</label>
+            <span><%= @cycle.last_modified_by ? @cycle.last_modified_by : "N/A" %></span>
+          </div>
+          <div class="form-group">
+            <label>Roll Out</label>
+            <span><%= @cycle.roll_out == 1 ? "No" : "Yes" %></span>
+          </div>
+          <div class="form-group">
+            <label>Cycle Year</label>
+            <span><%= @cycle.cycle_year ? @cycle.cycle_year : "N/A" %></span>
+          </div>
+          <div class="form-group">
+            <label>Provider Name</label>
+            <span><%= @cycle.policy.name ? @cycle.policy.name : "N/A" %></span>
+          </div>
+          <div class="form-group">
+            <label>Location</label>
+            <span><%= @cycle.location.name ? @cycle.location.name : "N/A" %></span>
+          </div>
+          <div class="form-group">
+            <label>Current Year</label>
+            <span><%= @cycle.isCurrent == 1 ? "Yes" : "No"%></span>
+          </div>
+          <div class="form-group">
+            <label>Status</label>
+            <span><%= @cycle.status == 1 ? "Active" : "In Active"%></span>
+          </div>
+          <div class="form-group">
+            <%= link_to "Edit", edit_admin_cycle_path(@cycle.id), class: "btn btn-primary btn-user btnSub" %>
+            <%= link_to "Cancel", admin_cycles_path, class: "btn btn-primary btn-user btnSub" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<h1>Sign In</h1>
+<body class="bg-gradient-primary">
+  <div class="container">
+    <!-- Outer Row -->
+    <div class="row justify-content-center">
+      <div class="col-xl-10 col-lg-12 col-md-9">
+        <div class="card o-hidden border-0 shadow-lg my-5">
+          <div class="card-body p-0">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="p-5">
+                  <%= form_with url: sign_in_path, class:'user' do |f| %>
+                  <div class="form-group">
+                    <%= f.label 'email:'%><br>
+                    <%= f.text_field :email, class:"form-control form-control-user" %><br>
+                  </div>
+                  <div class="form-group">
+                    <%= f.label 'password:'%><br>
+                    <%= f.password_field :password, class:"form-control form-control-user" %>
+                  </div>
+                  <div class="form-group">
+                    <%= f.submit 'Sign In', class: "btn btn-primary btn-user btnSub" %>
+                  </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
