@@ -1,11 +1,36 @@
-<div class="card o-hidden border-0 shadow-lg my-5">
+<div class="card o-hidden border-0 shadow-lg my-1">
   <div class="card-body p-0">
     <div class="row">
-      <div class="col-lg-6">
+      <div class="col-lg-9">
         <div class="p-5">
         <% @policy.each do |pol|%>
-          <table><tr><td><h1><%= pol.name %> (<%= pol.cycle_year%>)</h1></td></tr></table>
+          <table><tr><td><h3><%= pol.name %> (<%= pol.cycle_year%>)</h3></td></tr></table>
         <% end %>
+
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+  Launch demo modal
+</button> -->
+
+<!-- Modal -->
+<!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div> -->
         <table width="100%">
           <tr>
             <th><label>opt in</label></th>
@@ -53,7 +78,13 @@
                           <tr>
                               <td><%=@dependent.dependent_name%></td>
                               <td><%=@dependent.dob%></td>
-                              <td><%#= link_to "edit", edit_dependent_path(@dependent.id), class: "btn btn-mini", remote: true %></td>
+                              <td>
+                                <%= link_to edit_dependent_path(@dependent.id), class: "btn btn-warning edit",
+    remote: true do %>
+  <i class="glyphicon glyphicon-edit glyphicon-white"></i>
+  Edit
+<% end %>
+                                <%#= link_to "edit", edit_dependent_path(@dependent.id), class: "btn btn-mini", remote: true %></td>
                           </tr>
                       </tbody>
                   </table>
@@ -81,6 +112,9 @@
 </div>
 
 <script type="text/javascript">
+  // $(document).ready(function() {
+  //   $("#myModal").modal();
+  // });
 $('#toggle_event_editing button').click(function(){
 
 	if($(this).hasClass('locked_active') || $(this).hasClass('unlocked_inactive')){
