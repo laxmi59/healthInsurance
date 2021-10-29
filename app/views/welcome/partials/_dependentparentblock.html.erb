@@ -1,0 +1,134 @@
+<h3>Dependent Details</h3>
+<table>
+  <tr>
+    <td>Dependent Limit: 6</td>
+    <td><div class="actions-divider"></div></td>
+    <td>Current Dependents: <%=Dependent.where("employee_id = ?", Current.user.id).count%></td>
+  </tr>
+  <tr><td>&nbsp;</td></tr>
+</table>
+<% if Current.user.marital_status_id == '2' %>
+  <div class="btn-group" id="toggle_dependent_editing">
+    <button type="button" class="btn btn-info locked_active">Parents</button>
+    <button type="button" class="btn btn-light unlocked_inactive">In-Laws</button>
+  </div>
+<% else %>
+  <button type="button" class="btn btn-info locked_active">Parents</button>
+<% end %>
+<div class="card-deck">
+  <%
+  if Current.user.marital_status_id == '1'
+    @parents = Dependent.where(relationship_id: [1,2])
+  else
+    @parents = Dependent.where(relationship_id: [1,2])
+  end
+  %>
+  <% if @parents.size() != 0  %>
+  <% @parents.each do |parent| %>
+  <div class="card">
+  <div class="card-body">
+    <h5 class="card-title"><%=parent.relationship.name%></h5>
+    <div class="table-content">
+      <table class="table table-borded table-responsive table-striped " id="table-list">
+        <thead class="table-dark">
+          <tr><th>Name</th><th>Dob</th><th>Action</th></tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td><%=parent.dependent_name%></td>
+            <td><%=parent.dob%></td>
+            <td>
+              <%= link_to edit_dependent_path(parent.id),remote: true do %>
+                <i class="glyphicon glyphicon-edit glyphicon-white"></i> Edit
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<% end %>
+<% end %>
+</div>
+<%
+  if Current.user.marital_status_id == '2'
+  @spouse = Dependent.where(relationship_id: 5)
+%>
+  <div class="card-deck">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Wife</h5>
+      <div class="table-content">
+        <% if @spouse.size() != 0 %>
+        <table class="table table-borded table-responsive table-striped " id="table-list">
+          <thead class="table-dark">
+            <tr><th>Name</th><th>Dob</th><th>Action</th></tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td><%=spouse.dependent_name%></td>
+              <td><%=spouse.dob%></td>
+              <td>
+                <%= link_to edit_dependent_path(spouse.id),remote: true do %>
+                  <i class="glyphicon glyphicon-edit glyphicon-white"></i> Edit
+                <% end %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <% else %>
+        <%= link_to new_dependent_path,remote: true do %>
+          <i class="glyphicon glyphicon-add glyphicon-white"></i> Add
+        <%end %>
+      <%end%>
+      </div>
+    </div>
+  </div>
+  </div>
+<% end %>
+<div class="card-deck">
+<%
+  if Current.user.marital_status_id == '2'
+    @kids = Dependent.where(relationship_id: [6,7])
+  end
+
+  if @kids.size() != 0
+    @kids.each do |kid|  %>
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Kid 1</h5>
+        <div class="table-content">
+          <table class="table table-borded table-responsive table-striped " id="table-list">
+            <thead class="table-dark">
+              <tr><th>Name</th><th>Dob</th><th>Action</th></tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td><%=kid.dependent_name%></td>
+                <td><%=kid.dob%></td>
+                <td>
+                  <%= link_to edit_dependent_path(kid.id),remote: true do %>
+                    <i class="glyphicon glyphicon-edit glyphicon-white"></i> Edit
+                  <% end %>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <%end%>
+  <% else %>
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Kid 1</h5>
+        <div class="table-content">
+          <%#= link_to dependent_path,remote: true do %>
+            <i class="glyphicon glyphicon-add glyphicon-white"></i> Add
+          <%# end %>
+        </div>
+      </div>
+    </div>
+<% end %>
+</div>

@@ -33,19 +33,22 @@
     <li class="nav-item active">
       <div class="nav-details">Your Details</div>
       <div class="nav-details">
-        <label>Employee Id:</label>
+        <label>Employee Id:</label><br>
         <span><input type="text" name="" value="<%=Current.user.employee_id %>" disabled></span>
       </div>
       <div class="nav-details">
-        <label>Job Title:</label>
+        <label>Job Title:</label><br>
         <span><input type="text" name="" value="<%=Current.user.job_title %>" disabled></span>
       </div>
-    </li>
-    <li class="nav-item active">
-      <div class="nav-details">Marital Status</div>
       <div class="nav-details">
-        <!-- <span><input type="text" name="" value="<%#=Current.user.marital_status_id %>" disabled></span> -->
-        <span><input type="checkbox" checked data-toggle="toggle" data-on="Single" data-off="Married" data-onstyle="success" data-offstyle="danger"></span>
+        <label>Marital Status:</label><br>
+        <div class="btn-group" id="toggle_marital_editing">
+          <% if Current.user.marital_status_id == '1' %>
+            <button type="button" class="btn btn-info locked_active">Single</button>
+          <% else %>
+            <button type="button" class="btn btn-light unlocked_inactive">Married</button>
+          <% end %>
+        </div>
       </div>
     </li>
 </ul>

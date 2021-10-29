@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_18_145108) do
+ActiveRecord::Schema.define(version: 2021_10_29_100329) do
 
   create_table "action_types", force: :cascade do |t|
     t.string "name"
@@ -78,9 +78,9 @@ ActiveRecord::Schema.define(version: 2021_10_18_145108) do
     t.date "dob"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "gender"
+    t.integer "gender_id"
     t.string "job_title"
-    t.string "marital_status"
+    t.integer "marital_status_id", default: 1
     t.index ["blood_group_id"], name: "index_employees_on_blood_group_id"
     t.index ["location_id"], name: "index_employees_on_location_id"
     t.index ["role_id"], name: "index_employees_on_role_id"

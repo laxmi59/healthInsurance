@@ -26,21 +26,43 @@ class DependentsController < ApplicationController
   #   @dependent = Dependent.find_by(employee_id: Current.user.id, id: params[:id])
   # end
   #
-  # def update
-  #   @dependent = Dependent.find_by(employee_id: Current.user.id, id: params[:id])
-  #   if @dependent.save
-  #     redirect_to dependents_path( params[:id]), notice: "Successfully Updated Dependent details"
-  #   else
-  #     render action: 'edit'
-  #   end
-  # end
-
   def edit
-  @dependent = Dependent.find(params[:id])
-  respond_to do |format|
-    format.js { render partial: "edit", locals: {dependent: @dependent}}
+    @dependent = Dependent.find(params[:id])
+    respond_to do |format|
+      format.js { render partial: "edit", locals: {dependent: @dependent}}
+      format.html {
+        @dependent = Dependent.find_by(employee_id: Current.user.id, id: params[:id])
+      }
+    end
   end
-end
+
+  def update
+   @dependent = Dependent.find_by(employee_id: Current.user.id, id: params[:id])
+   @dependent.attributes = dependent_params_edit
+   #puts @dependent.inspect
+    if @dependent.save
+      respond_to do |format|
+        format.js {
+          redirect_to welcome_path, notice: "Successfully Updated Dependent details"
+        }
+        format.html {
+          redirect_to dependents_path, notice: "Successfully Updated Dependent details"
+        }
+      end
+    else
+      respond_to do |format|
+        format.js {
+         render partial: "edit_modal_error", locals: {dependent: @dependent}
+        }
+        format.html {
+          render action: 'edit'
+        }
+      end
+      #render action: 'edit'
+    end
+  end
+
+
 
 
   def dependent_params

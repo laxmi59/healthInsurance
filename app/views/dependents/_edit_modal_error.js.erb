@@ -1,0 +1,5 @@
+$('#dependent-form-edit').modal('hide');
+$('#dependent_modify_modal').html("");
+var valErrors = "<%= escape_javascript(render :partial => 'edit.html.erb', :locals => { :dependent => @dependent.errors }) %>";
+$('#dependent_modify_modal').append(valErrors);
+$('#dependent-form-edit').modal('show');

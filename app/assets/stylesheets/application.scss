@@ -2017,8 +2017,14 @@ font-size: 12px;
 }
 .toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 20px; }
 .toggle.ios .toggle-handle { border-radius: 20px; }
-
-
+.opt-in-block{
+  border: 1px solid #e3e6f0;
+  border-radius: 0.35rem;
+  padding: 10px;
+}
+.dependent-parent-block{
+  padding: 10px;
+}
 /////////////////////////end Wrote by rama
 .form-text {
   display: block;
@@ -11317,7 +11323,7 @@ body.sidebar-toggled footer.sticky-footer {
   width: 100%;
 }
 //////////////////////own styles
-.table .actions-divider {
+.actions-divider {
   width: 0;
   border-right: 1px solid #e3e6f0;
   height: calc(4.375rem - 2rem);
