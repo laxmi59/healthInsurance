@@ -3,18 +3,52 @@ class DependentsController < ApplicationController
     @dependents = Dependent.where("employee_id = ?", Current.user.id)
   end
 
+  # def new
+  #   @dependent = Dependent.new
+  # end
+  #
+  # def create
+  #   @dependent = Dependent.new(dependent_params)
+  #   #puts @dependent.inspect
+  #   if @dependent.save
+  #     redirect_to dependents_path, notice: "Successfully Created New Dependent"
+  #   else
+  #     @cycles = Cycle.all
+  #     render new_dependent_path
+  #   end
+  # end
+
   def new
     @dependent = Dependent.new
+    respond_to do |format|
+      format.js { render partial: "new", locals: {dependent: @dependent}}
+      format.html {
+        @dependent = Dependent.find_by(employee_id: Current.user.id)
+      }
+    end
   end
 
   def create
     @dependent = Dependent.new(dependent_params)
-    #puts @dependent.inspect
+    puts @dependent.inspect
     if @dependent.save
-      redirect_to dependents_path, notice: "Successfully Created New Dependent"
+      respond_to do |format|
+        format.js {
+          redirect_to welcome_path, notice: "Successfully Created New Dependent"
+        }
+        format.html {
+          redirect_to dependents_path, notice: "Successfully Created New Dependent"
+        }
+      end
     else
-      @cycles = Cycle.all
-      render new_dependent_path
+      respond_to do |format|
+        format.js {
+         render partial: "new_modal_error", locals: {dependent: @dependent}
+        }
+        format.html {
+          render new_dependent_path
+        }
+      end
     end
   end
 
