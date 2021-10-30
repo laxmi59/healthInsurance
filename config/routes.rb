@@ -5,6 +5,8 @@ Rails.application.routes.draw do
       get 'edit_personal'
       put 'update_personal'
       patch 'update_personal'
+      put 'update_parent_type'
+      patch 'update_parent_type'
     end
   end
   resources :dependents

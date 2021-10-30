@@ -3,28 +3,30 @@
   <tr>
     <td>Dependent Limit: 6</td>
     <td><div class="actions-divider"></div></td>
-    <td>Current Dependents: <%=Dependent.where("employee_id = ?", Current.user.id).count%></td>
+    <td>Current Dependents: <%=getdependentcount()%></td>
   </tr>
   <tr><td>&nbsp;</td></tr>
 </table>
 <!---------------------------------------Parents Data Start -------------------------------------->
-<% if Current.user.marital_status_id == 2 %>
+<% if Current.user.marital_status_id == 2  %>
   <div class="btn-group" id="toggle_dependent_editing">
+  <% if Current.user.parent_type == 1 %>
     <button type="button" class="btn btn-info locked_active">Parents</button>
     <button type="button" class="btn btn-light unlocked_inactive">In-Laws</button>
+  <% else %>
+    <button type="button" class="btn btn-light unlocked_inactive">Parents</button>
+    <button type="button" class="btn btn-info locked_active">In-Laws</button>
+  <% end %>
   </div>
 <% else %>
   <button type="button" class="btn btn-info locked_active">Parents</button>
 <% end %>
 <div class="card-deck">
-  <%
-  if Current.user.marital_status_id == 1
-    @parents = Dependent.where(employee_id: Current.user.id, relationship_id: [1,2])
-  else
-    @parents = Dependent.where(employee_id: Current.user.id, relationship_id: [1,2])
-  end
-  %>
-  <% if Dependent.exists?(employee_id: Current.user.id, relationship_id: [1,2]) %>
+  <% if dependentExistance("1,2") == true %>
+    <%
+    rid = [ 1,2 ]
+    @parents = dependentDetails(rid)
+     #puts @parents.inspect%>
     <% @parents.each do |parent| %>
     <div class="card">
       <div class="card-body">
@@ -72,8 +74,10 @@
     <div class="card-body">
       <h5 class="card-title">Wife</h5>
       <div class="table-content">
-        <% if Dependent.exists?(employee_id: Current.user.id, relationship_id: 5) %>
-          <% @spouses = Dependent.where("employee_id = ? and relationship_id = ?", Current.user.id, 5)%>
+        <%
+        rid = [5]
+        if dependentExistance(5)== true %>
+          <% @spouses = dependentDetails(rid)%>
           <% @spouses.each do |spouse| %>
           <table class="table table-borded table-responsive table-striped " id="table-list">
             <thead class="table-dark">
@@ -105,12 +109,10 @@
 <!---------------------------------------Spouse Data End -------------------------------------->
 <!---------------------------------------kids Data Start -------------------------------------->
 <div class="card-deck">
-  <%
-  if Current.user.marital_status_id == 2
-    @kids = Dependent.where(employee_id: Current.user.id, relationship_id: [6,7])
-  end
-  %>
-  <% if Dependent.exists?(employee_id: Current.user.id, relationship_id: [6,7]) %>
+  <% if dependentExistance("6,7")== true %>
+    <%
+    rid = [ 6,7]
+    @kids = dependentDetails(rid) %>
     <% @kids.each do |kid| %>
     <div class="card">
       <div class="card-body">
@@ -150,3 +152,20 @@
   <% end %>
 </div>
 <!---------------------------------------kids Data End -------------------------------------->
+<script type="text/javascript">
+$('#closeDailogParent').click(function(){
+	$('#parent_switch_change').modal('hide');
+});
+$('#toggle_dependent_editing button').click(function(){
+	if($(this).hasClass('locked_active') || $(this).hasClass('unlocked_inactive')){
+    $('#parent_switch_modal').append('<%= j render partial: "parentswitch.html.erb" %>');
+    $('#parent_switch_change').modal('show');
+	}else{
+
+	}
+	/* reverse locking status */
+	$('#toggle_dependent_editing button').eq(0).toggleClass('locked_inactive locked_active btn-info btn-light');
+	$('#toggle_dependent_editing button').eq(1).toggleClass('unlocked_inactive unlocked_active btn-light btn-info');
+});
+
+</script>

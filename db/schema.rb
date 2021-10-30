@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_29_100329) do
+ActiveRecord::Schema.define(version: 2021_10_30_144458) do
 
   create_table "action_types", force: :cascade do |t|
     t.string "name"
@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(version: 2021_10_29_100329) do
     t.integer "gender_id"
     t.string "job_title"
     t.integer "marital_status_id", default: 1
+    t.integer "parent_type", default: 1
     t.index ["blood_group_id"], name: "index_employees_on_blood_group_id"
     t.index ["location_id"], name: "index_employees_on_location_id"
     t.index ["role_id"], name: "index_employees_on_role_id"

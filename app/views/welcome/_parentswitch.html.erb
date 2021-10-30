@@ -1,0 +1,36 @@
+<div id="parent_switch_change" class="modal fade">
+  <div class="modal-dialog modal-content">
+    <div class="modal-header">
+      <h3>Parent Switch</h3>
+      <button type="button" id="closeDailogParent" class="close" data-dismiss="modal" aria-label="Close">X</button>
+      <%#= link_to "", welcome_path, class: "btn-close" %>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+      <p>Hi <%=Current.user.employee_name %>,</p>
+      <%= form_with url: update_parent_type_employee_path(Current.user.id), class:'user',method: :put do |f| %>
+        <% if Current.user.parent_type == 1 %>
+          <%= f.hidden_field :parent_type, :value => 2 %>
+          <ul>
+            <li>You are selected Parent-In-Laws option in dependents selection. </li>
+            <li>Do you really want to change Parents to Parent-In-Laws?</li>
+            <li>If you select <b style="color:red"> Continue</b> It will remove Parent records perminantly, Changes can't be undo. </li>
+            <li>After deleted the Parent Records, You can insert Parent-In-Laws Details.</li>
+          </ul>
+        <% else %>
+          <%= f.hidden_field :parent_type, :value => 1 %>
+          <ul>
+            <li>You are selected Parents option in dependents selection. </li>
+            <li>Do you really want to change Parent-In-Laws to Parents?</li>
+            <li>If you select <b style="color:red"> Continue</b> It will remove Parent-In-Laws records perminantly, Changes can't be undo. </li>
+            <li>After deleted the Parent-In-Laws Records, You can insery Parents Details.</li>
+          </ul>
+        <% end %>
+        <%= f.hidden_field :last_modified_by, :value => Current.user.employee_name %>
+        <%= f.submit 'Continue', class: "btn btn-primary btn-user btnSub" %>
+        <%= link_to "Cancel", welcome_path, class: "btn btn-primary btn-user btnSub" %>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>

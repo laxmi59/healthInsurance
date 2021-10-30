@@ -27,8 +27,21 @@ class EmployeesController < ApplicationController
     end
   end
 
+  def update_parent_type
+    @emp = Employee.find(Current.user.id)
+    @emp.attributes = emp_parent_params
+    #puts @emp.inspect
+    if @emp.save()
+      redirect_to welcome_path, notice: "Successfully Changed your Parent type"
+    end
+  end
+
   def show
     @emp = Employee.find(Current.user.id)
+  end
+
+  def emp_parent_params
+    params.permit(:parent_type, :last_modified_by)
   end
 
   def emp_params
