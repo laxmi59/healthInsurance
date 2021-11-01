@@ -20,7 +20,14 @@
         </div>
         <div class="form-group">
         <%= f.label 'relationship' %><br>
-        <%= f.select "relationship_id", options_from_collection_for_select(Relationship.all, "id", "name"), include_blank: 'select', class:"form-control form-control-user", disabled: "disabled" %>
+        <% if @dependent.relationship_id == 7%>
+        <% rid = 6,7
+          @rel = getRelationTypeSelect(rid)%>
+          <%= f.select "relationship_id", options_from_collection_for_select(@rel, "id", "name"), class:"form-control form-control-user" %>
+        <% else %>
+          <% @rel = getRelationTypeSelect(@dependent.relationship_id)%>
+          <%= f.select "relationship_id", options_from_collection_for_select(@rel, "id", "name"), class:"form-control form-control-user" %>
+        <% end %>
         </div>
         <div class="form-group">
         <%= f.label 'Date of Birth' %><br>
@@ -29,7 +36,7 @@
 
         <div class="form-group">
         <%= f.submit 'Submit', class: "btn btn-primary btn-user btnSub" %>
-        <%= link_to "Cancel", dependents_path, class: "btn btn-primary btn-user btnSub" %>
+        <%= link_to "Cancel", welcome_path, class: "btn btn-primary btn-user btnSub" %>
         </div>
       <% end %>
     </div>

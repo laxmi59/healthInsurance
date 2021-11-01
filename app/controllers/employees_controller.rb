@@ -32,6 +32,11 @@ class EmployeesController < ApplicationController
     @emp.attributes = emp_parent_params
     #puts @emp.inspect
     if @emp.save()
+      if(params[:parent_type] == 1)
+        Dependent.where("employee_id = ? AND relationship_id in (?)", Current.user.id, [3,4]).delete_all
+      else
+        Dependent.where("employee_id = ? AND relationship_id in (?)", Current.user.id, [1,2]).delete_all
+      end
       redirect_to welcome_path, notice: "Successfully Changed your Parent type"
     end
   end

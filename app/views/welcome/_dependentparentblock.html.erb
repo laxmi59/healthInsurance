@@ -22,136 +22,76 @@
   <button type="button" class="btn btn-info locked_active">Parents</button>
 <% end %>
 <div class="card-deck">
-  <% if dependentExistance("1,2") == true %>
-    <%
-    rid = [ 1,2 ]
-    @parents = dependentDetails(rid)
-     #puts @parents.inspect%>
-    <% @parents.each do |parent| %>
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title"><%=parent.relationship.name%></h5>
-        <div class="table-content">
-          <table class="table table-borded table-responsive table-striped " id="table-list">
-            <thead class="table-dark">
-              <tr><th>Name</th><th>Dob</th><th>Action</th></tr>
-              </thead>
-              <tbody>
-              <tr>
-                <td><%=parent.dependent_name%></td>
-                <td><%=parent.dob%></td>
-                <td>
-                  <%= link_to edit_dependent_path(parent.id),remote: true do %>
-                    <i class="glyphicon glyphicon-edit glyphicon-white"></i> Edit
-                  <% end %>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-    <% end %>
-  <% else %>
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Parents</h5>
-        <div class="table-content">
-          <%= link_to new_dependent_path,remote: true do %>
-            <i class="glyphicon glyphicon-add glyphicon-white"></i> Add
-          <% end %>
-        </div>
-      </div>
-    </div>
-  <% end %>
-</div>
-<!---------------------------------------Parents Data End -------------------------------------->
-<!---------------------------------------Spouse Data Start -------------------------------------->
-<%#=Current.user.marital_status_id%>
-<% if Current.user.marital_status_id == 2%>
-  <div class="card-deck">
-  <div class="card">
-    <div class="card-body">
-      <h5 class="card-title">Wife</h5>
+  <!---------------------------------------Father block Start -------------------------------------->
+  <% #rid = Current.user.parent_type == 1 ?  1 : 3 %>
+  <%
+    if Current.user.parent_type == 1
+      dfid = 1
+      dmid = 2
+    else
+      dfid = 3
+      dmid = 4
+    end
+  %>
+  <div class="card card-dependent">
+    <div class="card-body card-dependent">
+      <h5 class="card-title"><%=getRelationType(dfid)%></h5>
       <div class="table-content">
         <%
-        rid = [5]
-        if dependentExistance(5)== true %>
-          <% @spouses = dependentDetails(rid)%>
-          <% @spouses.each do |spouse| %>
-          <table class="table table-borded table-responsive table-striped " id="table-list">
-            <thead class="table-dark">
-              <tr><th>Name</th><th>Dob</th><th>Action</th></tr>
+        if dependentExistance(dfid) == true
+          @parents = dependentDetails(dfid)
+          @parents.each do |parent| %>
+            <table class="table table-borded table-responsive table-striped " id="table-list">
+              <thead class="table-dark">
+                <tr><th>Name</th><th>Dob</th><th>Action</th></tr>
               </thead>
               <tbody>
-              <tr>
-                <td><%=spouse.dependent_name ? spouse.dependent_name : "N/A" %></td>
-                <td><%=spouse.dob ? spouse.dob : "N/A"%></td>
-                <td>
-                  <%= link_to edit_dependent_path(spouse.id),remote: true do %>
-                    <i class="glyphicon glyphicon-edit glyphicon-white"></i> Edit
-                  <% end %>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                <tr><td><%=parent.dependent_name%></td><td><%=parent.dob%></td>
+                  <td><%= link_to edit_dependent_path(parent.id),remote: true do %>Edit<% end %></td>
+                </tr>
+              </tbody>
+            </table>
           <% end %>
         <% else %>
-          <%= link_to new_dependent_path,remote: true do %>
+          <%= link_to new_dependent_path(rid: dfid),remote: true do %>
             <i class="glyphicon glyphicon-add glyphicon-white"></i> Add
           <% end %>
-      <%end%>
+        <% end %>
       </div>
     </div>
   </div>
-  </div>
-<% end %>
-<!---------------------------------------Spouse Data End -------------------------------------->
-<!---------------------------------------kids Data Start -------------------------------------->
-<div class="card-deck">
-  <% if dependentExistance("6,7")== true %>
-    <%
-    rid = [ 6,7]
-    @kids = dependentDetails(rid) %>
-    <% @kids.each do |kid| %>
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title"><%=kid.relationship.name%></h5>
-        <div class="table-content">
-          <table class="table table-borded table-responsive table-striped " id="table-list">
-            <thead class="table-dark">
-              <tr><th>Name</th><th>Dob</th><th>Action</th></tr>
+  <!---------------------------------------Father block End -------------------------------------->
+  <!---------------------------------------Mother block start -------------------------------------->
+  <div class="card card-dependent">
+    <div class="card-body card-dependent">
+      <h5 class="card-title"><%=getRelationType(dmid)%></h5>
+      <div class="table-content">
+        <%
+          if dependentExistance(dmid) == true
+          @parents = dependentDetails(dmid)
+          @parents.each do |parent| %>
+            <table class="table table-borded table-responsive table-striped " id="table-list">
+              <thead class="table-dark">
+                <tr><th>Name</th><th>Dob</th><th>Action</th></tr>
               </thead>
               <tbody>
-              <tr>
-                <td><%=kid.dependent_name%></td>
-                <td><%=kid.dob%></td>
-                <td>
-                  <%= link_to edit_dependent_path(kid.id),remote: true do %>
-                    <i class="glyphicon glyphicon-edit glyphicon-white"></i> Edit
-                  <% end %>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-    <% end %>
-  <% else %>
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Kids</h5>
-        <div class="table-content">
-          <%= link_to new_dependent_path,remote: true do %>
+                <tr><td><%=parent.dependent_name%></td><td><%=parent.dob%></td>
+                  <td><%= link_to edit_dependent_path(parent.id),remote: true do %>Edit<% end %></td>
+                </tr>
+              </tbody>
+            </table>
+          <% end %>
+        <% else %>
+          <%= link_to new_dependent_path(rid: dmid),remote: true do %>
             <i class="glyphicon glyphicon-add glyphicon-white"></i> Add
           <% end %>
-        </div>
+        <% end %>
       </div>
     </div>
-  <% end %>
+  </div>
+  <!---------------------------------------Mother block End -------------------------------------->
 </div>
-<!---------------------------------------kids Data End -------------------------------------->
+
 <script type="text/javascript">
 $('#closeDailogParent').click(function(){
 	$('#parent_switch_change').modal('hide');

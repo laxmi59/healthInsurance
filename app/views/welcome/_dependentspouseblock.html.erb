@@ -1,0 +1,34 @@
+<!---------------------------------------Spouse Data Start -------------------------------------->
+<% #if Current.user.marital_status_id == 2%>
+  <div class="card-deck">
+  <div class="card card-dependent">
+    <div class="card-body card-dependent">
+      <h5 class="card-title">Wife</h5>
+      <div class="table-content">
+        <% rid = [5]
+        if dependentExistance(rid)== true %>
+          <% @spouses = dependentDetails(rid)%>
+          <% @spouses.each do |spouse| %>
+            <table class="table table-borded table-responsive table-striped " id="table-list">
+              <thead class="table-dark">
+                <tr><th>Name</th><th>Dob</th><th>Action</th></tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td><%=spouse.dependent_name %></td><td><%=spouse.dob%></td>
+                  <td><%= link_to edit_dependent_path(spouse.id),remote: true do %> Edit<% end %></td>
+                </tr>
+              </tbody>
+            </table>
+          <% end %>
+        <% else %>
+          <%= link_to new_dependent_path(rid: 5),remote: true do %>
+            <i class="glyphicon glyphicon-add glyphicon-white"></i> Add
+          <% end %>
+      <%end%>
+      </div>
+    </div>
+  </div>
+  </div>
+<% #end %>
+<!---------------------------------------Spouse Data End -------------------------------------->

@@ -15,4 +15,12 @@ module DependentsHelper
     Dependent.where("employee_id = ?", Current.user.id).count
   end
 
+  def getRelationType(rid)
+    Relationship.find(rid).name
+  end
+
+  def getRelationTypeSelect(rid)
+    Relationship.where(id: rid)
+  end
+
 end

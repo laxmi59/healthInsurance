@@ -20,6 +20,7 @@ class DependentsController < ApplicationController
 
   def new
     @dependent = Dependent.new
+    @dependent.relationship_id = params[:rid]    
     respond_to do |format|
       format.js { render partial: "new", locals: {dependent: @dependent}}
       format.html {
@@ -30,7 +31,7 @@ class DependentsController < ApplicationController
 
   def create
     @dependent = Dependent.new(dependent_params)
-    puts @dependent.inspect
+    #puts @dependent.inspect
     if @dependent.save
       respond_to do |format|
         format.js {
