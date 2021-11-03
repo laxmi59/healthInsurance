@@ -1,14 +1,14 @@
 <% #if Current.user.marital_status_id == 2%>
 <div class="card-deck">
   <!---------------------------------------kid block Start -------------------------------------->
-  <div class="card card-dependent">
-    <div class="card-body card-dependent">
-      <h5 class="card-title">Kid</h5>
-      <div class="table-content">
-        <% rid = [ 7 ]
-        if dependentExistance(rid) == true
-          @kids = dependentDetails(rid)
-          @kids.each do |kid| %>
+  <% rid = [ 6,7 ]
+  if dependentExistance(rid) == true
+    @kids = dependentDetails(rid)
+    @kids.each do |kid| %>
+      <div class="card card-dependent">
+        <div class="card-body card-dependent">
+          <h5 class="card-title">Child - <%=kid.dependent_name%></h5>
+          <div class="table-content">
             <table class="table table-borded table-responsive table-striped " id="table-list">
               <thead class="table-dark">
                 <tr><th>Name</th><th>Dob</th><th>Action</th></tr>
@@ -19,44 +19,21 @@
                 </tr>
               </tbody>
             </table>
-          <% end %>
-        <% else %>
-          <%= link_to new_dependent_path(rid: 7), remote: true do %>
-            <i class="glyphicon glyphicon-add glyphicon-white"></i> Add
-          <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+  <div class="card card-dependent">
+    <div class="card-body card-dependent">
+      <h5 class="card-title">Child</h5>
+      <div class="table-content">
+        <%= link_to new_dependent_path(rid: 7), remote: true do %>
+          <i class="glyphicon glyphicon-add glyphicon-white"></i> Add
         <% end %>
       </div>
     </div>
   </div>
+  <% end %>
   <!---------------------------------------kid block End -------------------------------------->
-  <!---------------------------------------kid2 block start -------------------------------------->
-  <div class="card card-dependent">
-    <div class="card-body card-dependent">
-      <h5 class="card-title">Kid 2</h5>
-      <div class="table-content">
-        <% rid = [ 7 ]
-          if dependentExistance(rid) == true
-          @kids = dependentDetails(rid)
-          @kids.each do |kid| %>
-            <table class="table table-borded table-responsive table-striped " id="table-list">
-              <thead class="table-dark">
-                <tr><th>Name</th><th>Dob</th><th>Action</th></tr>
-              </thead>
-              <tbody>
-                <tr><td><%=kid.dependent_name%></td><td><%=kid.dob%></td>
-                  <td><%= link_to edit_dependent_path(kid.id),remote: true do %>Edit<% end %></td>
-                </tr>
-              </tbody>
-            </table>
-          <% end %>
-        <% else %>
-          <%= link_to new_dependent_path(rid: 7),remote: true do %>
-            <i class="glyphicon glyphicon-add glyphicon-white"></i> Add
-          <% end %>
-        <% end %>
-      </div>
-    </div>
-  </div>
-  <!---------------------------------------kid2 block End -------------------------------------->
 </div>
-<% #end %>

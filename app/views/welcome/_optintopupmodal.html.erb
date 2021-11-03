@@ -1,0 +1,39 @@
+<div id="optin_topup_select_change" class="modal fade">
+  <div class="modal-dialog modal-content">
+    <div class="modal-header">
+      <h3>Optin Selection</h3>
+      <button type="button" id="closeDailogParent" class="close" data-dismiss="modal" aria-label="Close">X</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <p>Hi <%=Current.user.employee_name %>,</p>
+        <%=form_with url: optin_selection_employee_path(Current.user.id), class:'user',method: :put do |f| %>
+          <%= f.hidden_field :employee_id, :value => Current.user.id  %>
+          <%= f.hidden_field :marital_status_id, :value => Current.user.marital_status_id  %>
+          <%= f.hidden_field :is_opted, :value => "1", id: "optinsurance"  %>
+          <%= f.hidden_field :last_modified_by, :value => Current.user.employee_name  %>
+          <% @policy.each do |etp|%>
+            <ul>
+              <li>You are optin for <b><%=getPolicyName(etp.policyId)%></b> for the year <b><%=getCycleName(etp.cycleId)%></b> </li>
+              <% optdata= optinTopupAmount(etp.cycleId)%>
+              <li>Top up Amount will be <b><%=optdata.coverage%></b></li>
+              <li>Amount deductable for month will be <b><%=optdata.amount_deductable%></b></li>
+              <li> Your dependents are:<br>
+                <% deps = getalldependents()
+                deps.each do |dep| %>
+                  <%=dep.dependent_name+  " ( " + dep.relationship.name + " )"%><br>
+                <% end %>
+              </li>
+              <li>If you select <b style="color:red"> Continue</b> you will never change dependents for the year! Do you want to continue </li>
+            </ul>
+            <% cid = etp.cycleId%>
+            <%= f.hidden_field :cycle_id, :value => etp.cycleId  %>
+            <%= f.hidden_field :policy_id, :value => etp.policyId  %>
+          <% end %>
+          <%= f.submit 'Continue', class: "btn btn-primary btn-user btnSub" %>
+          <%= link_to "Cancel", welcome_path, class: "btn btn-primary btn-user btnSub" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

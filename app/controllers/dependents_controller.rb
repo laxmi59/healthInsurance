@@ -3,24 +3,9 @@ class DependentsController < ApplicationController
     @dependents = Dependent.where("employee_id = ?", Current.user.id)
   end
 
-  # def new
-  #   @dependent = Dependent.new
-  # end
-  #
-  # def create
-  #   @dependent = Dependent.new(dependent_params)
-  #   #puts @dependent.inspect
-  #   if @dependent.save
-  #     redirect_to dependents_path, notice: "Successfully Created New Dependent"
-  #   else
-  #     @cycles = Cycle.all
-  #     render new_dependent_path
-  #   end
-  # end
-
   def new
     @dependent = Dependent.new
-    @dependent.relationship_id = params[:rid]    
+    @dependent.relationship_id = params[:rid]
     respond_to do |format|
       format.js { render partial: "new", locals: {dependent: @dependent}}
       format.html {

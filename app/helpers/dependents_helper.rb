@@ -15,6 +15,10 @@ module DependentsHelper
     Dependent.where("employee_id = ?", Current.user.id).count
   end
 
+  def getalldependents()
+    Dependent.where("employee_id = ?", Current.user.id).includes(:relationship)
+  end
+
   def getRelationType(rid)
     Relationship.find(rid).name
   end
@@ -23,4 +27,16 @@ module DependentsHelper
     Relationship.where(id: rid)
   end
 
+  def dependentKidExistance(dob)
+    Dependent.exists?(employee_id: Current.user.id, dob: [dob])
+  end
+
+  # def getdependentKidcount()
+  #   kidcount = Dependent.where(employee_id: Current.user.id, relationship_id: [6,7])
+  #   if kidcount.count == 2
+  #     #kid = Dependent.where(employee_id: Current.user.id, relationship_id: [6,7]).first
+  #     #kid2 = Dependent.where(employee_id: Current.user.id, relationship_id: [6,7]).last
+  #     result = kidcount[0].dob == kidcount[1].dob ? false : true
+  #   end
+  # end
 end

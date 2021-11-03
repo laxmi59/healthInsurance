@@ -30,19 +30,29 @@ class EmployeesController < ApplicationController
   def update_parent_type
     @emp = Employee.find(Current.user.id)
     @emp.attributes = emp_parent_params
-    #puts @emp.inspect
     if @emp.save()
-      if(params[:parent_type] == 1)
+      if(@emp.parent_type == 1)
         Dependent.where("employee_id = ? AND relationship_id in (?)", Current.user.id, [3,4]).delete_all
-      else
+      elsif(@emp.parent_type == 2)
         Dependent.where("employee_id = ? AND relationship_id in (?)", Current.user.id, [1,2]).delete_all
       end
       redirect_to welcome_path, notice: "Successfully Changed your Parent type"
     end
   end
 
+  def optin_selection
+    @empcycle = EmployeeCycle.new(emp_optin_params)
+    if @empcycle.save()
+      redirect_to welcome_path, notice: "Successfully Optin for Topup Insurance cycle for the year"
+    end
+  end
+
   def show
     @emp = Employee.find(Current.user.id)
+  end
+
+  def emp_optin_params
+    params.permit(:employee_id, :is_opted, :cycle_id, :marital_status_id, :policy_id, :last_modified_by)
   end
 
   def emp_parent_params

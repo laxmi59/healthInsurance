@@ -1,3 +1,4 @@
+<%#=Date.parse('2010-11-01') === Date.parse('2010-11-01')%>
 <table>
   <tr>
     <td><h3>Insurance</h3></td>
@@ -13,18 +14,36 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="p-5">
-          <div class="opt-in-block">
-            <%= render "welcome/optinblock" %>
-          </div>
-          <div class="dependent-parent-block">
-            <%= render "welcome/dependentparentblock" %>
-          </div>
-          <div class="dependent-spouse-block">
-            <%= render "welcome/dependentspouseblock" %>
-          </div>
-          <div class="dependent-kid-block">
-            <%= render "welcome/dependentkidblock" %>
-          </div>
+          <%
+            optinselect = optinTopupofEmployee()
+            if optinselect
+          %>
+          <ul>
+            <li>You are already optin for <b><%=getPolicyName(optinselect.policy_id)%></b> for the year <b><%=getCycleName(optinselect.cycle_id)%></b> </li>
+            <% optdata= optinTopupAmount(optinselect.cycle_id)%>
+            <li>Top up Amount is <b><%=optdata.coverage%></b></li>
+            <li>Amount deductable for month is <b><%=optdata.amount_deductable%></b></li>
+            <li> Your dependents are:<br>
+              <% deps = getalldependents()
+              deps.each do |dep| %>
+                <%=dep.dependent_name+  " ( " + dep.relationship.name + " )"%><br>
+              <% end %>
+            </li>
+          </ul>
+          <% else %>
+              <div class="opt-in-block">
+                <%= render "welcome/optinblock" %>
+              </div>
+              <div class="dependent-parent-block">
+                <%= render "welcome/dependentparentblock" %>
+              </div>
+              <div class="dependent-spouse-block">
+                <%= render "welcome/dependentspouseblock" %>
+              </div>
+              <div class="dependent-kid-block">
+                <%= render "welcome/dependentkidblock" %>
+              </div>
+            <% end %>
         </div>
       </div>
     </div>
@@ -33,6 +52,7 @@
 <div id="dependent_modify_modal"></div>
 <div id="dependent_new_modal"></div>
 <div id="parent_switch_modal"></div>
+<div id="optin_topup_modal"></div>
 
 
 <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">

@@ -7,6 +7,8 @@ Rails.application.routes.draw do
       patch 'update_personal'
       put 'update_parent_type'
       patch 'update_parent_type'
+      put 'optin_selection'
+      patch 'optin_selection'
     end
   end
   resources :dependents

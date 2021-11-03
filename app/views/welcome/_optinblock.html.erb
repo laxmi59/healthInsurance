@@ -14,23 +14,16 @@
       </div>
     </td>
     <td>
-      <%= form_with model: @emptopup, url: sign_up_path do |f| %>
-        <%= f.hidden_field :employee_id, :value => Current.user.id  %>
-        <%= f.hidden_field :marital_status_id, :value => Current.user.marital_status_id  %>
-        <%= f.hidden_field :is_opted, :value => "0", id: "optinsurance"  %>
-        <% @policy.each do |etp|%>
-          <%= f.hidden_field :cycle_id, :value => etp.cycleId  %>
-          <%= f.hidden_field :policy_id, :value => etp.policyId  %>
-        <% end %>
-        <%= f.hidden_field :last_modified_by, :value => Current.user.employee_name  %>
+      <% @policy.each do |etp|%>
         <div class="form-group">
-          <%= f.select "top_up_id", options_from_collection_for_select(TopUp.all, "id", "coverage"),{include_blank: true},  {disabled: true} %>
+          <%= select_tag("top_up_id", options_from_collection_for_select(optinTopup(etp.cycleId), "id", "coverage"),{include_blank: true}) %>
         </div>
       <% end %>
     </td>
   </tr>
 </table>
 <script type="text/javascript">
+$("#top_up_id").prop("disabled", true);
 $('#toggle_optin_editing button').click(function(){
 	if($(this).hasClass('locked_active') || $(this).hasClass('unlocked_inactive')){
 		/* code to do when unlocking */
@@ -44,5 +37,10 @@ $('#toggle_optin_editing button').click(function(){
 	/* reverse locking status */
 	$('#toggle_optin_editing button').eq(0).toggleClass('locked_inactive locked_active btn-secondary btn-primary');
 	$('#toggle_optin_editing button').eq(1).toggleClass('unlocked_inactive unlocked_active btn-primary btn-secondary');
+});
+
+$('#top_up_id').on('change', function () {
+  $('#optin_topup_modal').append('<%= j render partial: "optintopupmodal.html.erb" %>');
+  $('#optin_topup_select_change').modal('show');
 });
 </script>

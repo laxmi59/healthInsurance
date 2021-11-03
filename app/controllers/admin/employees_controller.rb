@@ -13,7 +13,7 @@ class Admin::EmployeesController < ApplicationController
 
   def create
     @emp = Employee.new(employee_params)
-    puts @emp.inspect
+    #puts @emp.inspect
     if @emp.save
       redirect_to admin_employees_path, notice: "Successfully Created New Employee"
     else
