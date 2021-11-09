@@ -5,8 +5,10 @@ Rails.application.routes.draw do
       get 'edit_personal'
       put 'update_personal'
       patch 'update_personal'
+
       put 'update_parent_type'
       patch 'update_parent_type'
+
       put 'optin_selection'
       patch 'optin_selection'
     end
@@ -14,16 +16,12 @@ Rails.application.routes.draw do
   resources :dependents
   get 'getcycles', to: 'dependents#getcyclesbypolicy'
   namespace :admin do
-    # get 'employees/index'
-    # get 'employees/new'
-    # get 'employees/edit'
-    # get 'employees/delete'
-  end
-  namespace :admin do
     get 'dashboard', to: 'welcome#index'
     resources :employees do
       collection do
         get 'export_csv'
+        get 'import_csv'
+        post 'import_csv_create'
       end
     end
     resources :policies

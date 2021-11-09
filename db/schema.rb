@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_30_144458) do
+ActiveRecord::Schema.define(version: 2021_11_07_105536) do
 
   create_table "action_types", force: :cascade do |t|
     t.string "name"
@@ -78,12 +78,14 @@ ActiveRecord::Schema.define(version: 2021_10_30_144458) do
     t.date "dob"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "gender_id"
     t.string "job_title"
-    t.integer "marital_status_id", default: 1
     t.integer "parent_type", default: 1
+    t.integer "gender_id"
+    t.integer "marital_status_id"
     t.index ["blood_group_id"], name: "index_employees_on_blood_group_id"
+    t.index ["gender_id"], name: "index_employees_on_gender_id"
     t.index ["location_id"], name: "index_employees_on_location_id"
+    t.index ["marital_status_id"], name: "index_employees_on_marital_status_id"
     t.index ["role_id"], name: "index_employees_on_role_id"
   end
 
@@ -137,6 +139,8 @@ ActiveRecord::Schema.define(version: 2021_10_30_144458) do
   end
 
   add_foreign_key "employees", "blood_groups"
+  add_foreign_key "employees", "genders"
   add_foreign_key "employees", "locations"
+  add_foreign_key "employees", "marital_statuses"
   add_foreign_key "employees", "roles"
 end

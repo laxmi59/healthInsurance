@@ -16,6 +16,7 @@
             <ul>
               <li>You are optin for <b><%=getPolicyName(etp.policyId)%></b> for the year <b><%=getCycleName(etp.cycleId)%></b> </li>
               <% optdata= optinTopupAmount(etp.cycleId)%>
+              <%= f.hidden_field :top_up_id, :value => optdata.id  %>
               <li>Top up Amount will be <b><%=optdata.coverage%></b></li>
               <li>Amount deductable for month will be <b><%=optdata.amount_deductable%></b></li>
               <li> Your dependents are:<br>

@@ -11,6 +11,7 @@
               <%= f.text_field :email, class:"form-control form-control-user" %>
               <%= f.hidden_field :last_modified_by, :value => Current.user.employee_name  %>
               <%= f.hidden_field :is_active, :value => "1"  %>
+              <%= f.hidden_field :marital_status_id, :value => "1"  %>
             </div>
             <div class="form-group">
               <%= f.label 'password' %>
@@ -27,6 +28,10 @@
             <div class="form-group">
               <%= f.label 'employee_id' %>
               <%= f.text_field :employee_id, class:"form-control form-control-user"  %>
+            </div>
+            <div class="form-group">
+              <%= f.label 'job_title' %>
+              <%= f.text_field :job_title, class:"form-control form-control-user"  %>
             </div>
             <div class="form-group">
               <%= f.submit ' Submit', class: "btn btn-primary btn-user btnSub" %>

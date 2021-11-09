@@ -11,6 +11,18 @@ class Admin::EmployeesController < ApplicationController
     @emp = Employee.new
   end
 
+  def import_csv
+    @emp = Employee.new
+  end
+
+  def import_csv_create
+    if Employee.import(params[:employee][:file])
+     redirect_to admin_employees_path, notice: "Employees uploaded successfully"
+   else
+     render admin_employee_path
+   end
+  end
+
   def create
     @emp = Employee.new(employee_params)
     #puts @emp.inspect
@@ -22,8 +34,7 @@ class Admin::EmployeesController < ApplicationController
   end
 
   def employee_params
-    params.require(:employee).permit(:email, :password, :password_confirmation, :role_id, :is_active, :last_modified_by, :employee_id)
-
+    params.require(:employee).permit(:email, :password, :password_confirmation, :role_id, :is_active, :last_modified_by, :employee_id, :job_title)
   end
 
   def edit
@@ -35,7 +46,7 @@ class Admin::EmployeesController < ApplicationController
   end
 
   def export_csv
-    @emps = Employee.where("role_id = ?", 2).includes(:role, :location, :blood_group)
+    @emps = Employee.where("role_id = ?", 2).includes(:role, :location, :blood_group, :marital_status, :gender)
     respond_to do |format|
       format.html
       format.csv{ send_data @emps.to_csv, filename: "Employee-#{Date.today}.csv"}

@@ -11340,3 +11340,54 @@ body.sidebar-toggled footer.sticky-footer {
   margin: auto 1rem;
   display: inline;
 }
+.flags-single, .flags-married, .flags-user-optin, .flags-user-pending, .flags-user-optout, .flags-users {
+  background-color: #fff;
+  background-image: url('Insurance_App.png');
+  background-repeat: no-repeat;
+  padding: 0;
+  margin: 0;
+  zoom:0.5;
+    -moz-transform:scale(0.5);
+    -moz-transform-origin: 0 0;
+}
+.flags-single {
+  height: 64px;
+  background-position: -482px -824px;
+  width: 142px;
+  border: 1px solid;
+  zoom:0.70;
+    -moz-transform:scale(0.70);
+    -moz-transform-origin: 0 0;
+}
+.flags-married {
+  height: 64px;
+  background-position: -482px -740px;
+  width: 142px;
+  border: 1px solid;
+  zoom:0.70;
+    -moz-transform:scale(0.70);
+    -moz-transform-origin: 0 0;
+}
+.flags-user-optin {
+  height: 94px;
+  background-position: -467px -296px;
+  width: 100px;
+}
+.flags-user-pending {
+  height: 94px;
+  background-position: -620px -296px;
+  width: 100px;
+}
+.flags-user-optout {
+  height: 94px;
+  background-position: -467px -495px;
+  width: 100px;
+}
+.flags-users {
+  height: 94px;
+  background-position: -620px -495px;
+  width: 100px;
+}
+.dashboardUserCount{
+  height: 100px !important;
+}

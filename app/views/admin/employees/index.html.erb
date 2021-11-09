@@ -1,5 +1,6 @@
 <table width="100%"><tr><td><h1>Employees</h1></td>
 <td class="float-right">
+  <%= link_to "Import", import_csv_admin_employees_path, class: "btn btn-primary btn-user" %>
   <%= link_to "Export", export_csv_admin_employees_path(format: :csv), class: "btn btn-primary btn-user" %>
   <%= link_to "Add New Employee", new_admin_employee_path, class: "btn btn-primary btn-user" %>
 </td>
@@ -9,17 +10,15 @@
       <div class="table-responsive">
         <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
           <div class="row">
-            <div class="col-sm-12">              
+            <div class="col-sm-12">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
               <thead>
                   <tr>
                     <th>Name</th>
                     <th>Phone</th>
-                    <th>Nominees</th>
                     <th>Dob</th>
                     <th>Role</th>
                     <th>Location</th>
-                    <th>Correction Type</th>
                     <th>Top-Up Amount</th>
                     <th>Top-Up Insurance</th>
                     <th>Actions</th>
@@ -29,16 +28,16 @@
                   <% if @emps.size() != 0 %>
                   <%#= @emps.inspect%>
                     <% @emps.each do |emp| %>
+                    <% empData = employeePolicyData(emp.id)%>
+                    <%#= empData.inspect%>
                     <tr>
                       <td><%= emp.employee_name ? emp.employee_name : "N/A" %></td>
                       <td><%= emp.phone_number ? emp.phone_number : "N/A" %></td>
-                      <td><%= 0 %></td>
                       <td><%= emp.dob ? emp.dob : "N/A" %></td>
                       <td><%= emp.role ? emp.role.name  : "N/A" %></td>
                       <td><%= emp.location ? emp.location.name  : "N/A" %></td>
-                      <td><%= "edited" %></td>
-                      <td><%= "Top-Up Amount" %></td>
-                      <td><%= "Top-Up Insurance" %></td>
+                      <td><%= empData && empData.top_up ? empData.top_up.coverage : "N/A" %></td>
+                      <td><%= empData && empData.policy ? empData.policy.name : "N/A" %></td>
                       <td>
                         <%= link_to "View", admin_employee_path(emp.id) %>
                         <div class="actions-divider"></div>

@@ -52,7 +52,7 @@ class EmployeesController < ApplicationController
   end
 
   def emp_optin_params
-    params.permit(:employee_id, :is_opted, :cycle_id, :marital_status_id, :policy_id, :last_modified_by)
+    params.permit(:employee_id, :is_opted, :cycle_id, :marital_status_id, :policy_id, :last_modified_by, :top_up_id)
   end
 
   def emp_parent_params

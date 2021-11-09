@@ -21,4 +21,7 @@ module WelcomeHelper
     EmployeeCycle.find_by(employee_id: Current.user.id)
   end
 
+  def getActionTypes()
+    ActionType.all()
+  end
 end

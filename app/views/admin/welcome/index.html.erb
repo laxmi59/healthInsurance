@@ -1,51 +1,77 @@
 <div class="row">
+  <%#= pie_chart @employees, donut: true%>
   <!-- Earnings (Monthly) Card Example -->
   <div class="col-xl-3 col-md-6 mb-4">
-    <div class="card border-left-primary shadow h-100 py-2">
+    <div class="card border-left-primary shadow h-100 py-2 dashboardUserCount">
       <div class="card-body">
         <div class="row no-gutters align-items-center">
           <div class="col mr-2">
-            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"> Opted-in <br> users</div>
-            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+            <table>
+              <tr>
+                <td><div class="flags-user-optin"></div></td>
+                <td style="vertical-align:top">
+                  <div class="h6 mb-0 font-weight-bold text-gray-800"><%=optinUsers()%></div>
+                  <div> Opted-in users</div>
+                </td>
+              </tr>
+            </table>
           </div>
-          <div class="col-auto"><i class="fas fa-calendar fa-2x text-gray-300"></i></div>
         </div>
       </div>
     </div>
   </div>
   <div class="col-xl-3 col-md-6 mb-4">
-    <div class="card border-left-primary shadow h-100 py-2">
+    <div class="card border-left-primary shadow h-100 py-2 dashboardUserCount">
       <div class="card-body">
         <div class="row no-gutters align-items-center">
           <div class="col mr-2">
-            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"> Pending Actions</div>
-            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+            <table>
+              <tr>
+                <td><div class="flags-user-pending"></div></td>
+                <td style="vertical-align:top">
+                  <div class="h6 mb-0 font-weight-bold text-gray-800"><%=pendingUsers()%></div>
+                  <div> Pending</div>
+                </td>
+              </tr>
+            </table>
           </div>
-          <div class="col-auto"><i class="fas fa-calendar fa-2x text-gray-300"></i></div>
         </div>
       </div>
     </div>
   </div>
   <div class="col-xl-3 col-md-6 mb-4">
-    <div class="card border-left-primary shadow h-100 py-2">
+    <div class="card border-left-primary shadow h-100 py-2 dashboardUserCount">
       <div class="card-body">
         <div class="row no-gutters align-items-center">
           <div class="col mr-2">
-            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"> Opted-Out</div>
-            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+            <table>
+              <tr>
+                <td><div class="flags-user-optout"></div></td>
+                <td style="vertical-align:top">
+                  <div class="h6 mb-0 font-weight-bold text-gray-800"><%=optOutUsers()%></div>
+                  <div> Opted-Out</div>
+                </td>
+              </tr>
+            </table>
           </div>
-          <div class="col-auto"><i class="fas fa-calendar fa-2x text-gray-300"></i></div>
         </div>
       </div>
     </div>
   </div>
   <div class="col-xl-3 col-md-6 mb-4">
-    <div class="card border-left-primary shadow h-100 py-2">
+    <div class="card border-left-primary shadow h-100 py-2 dashboardUserCount">
       <div class="card-body">
         <div class="row no-gutters align-items-center">
           <div class="col mr-2">
-            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"> Total Employees</div>
-            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+            <table>
+              <tr>
+                <td><div class="flags-users"></div></td>
+                <td style="vertical-align:top">
+                  <div class="h6 mb-0 font-weight-bold text-gray-800"><%=getAllUsers()%></div>
+                  <div> Total Employees</div>
+                </td>
+              </tr>
+            </table>
           </div>
           <div class="col-auto"><i class="fas fa-calendar fa-2x text-gray-300"></i></div>
         </div>
@@ -59,26 +85,12 @@
       <div class="card shadow mb-4">
           <!-- Card Header - Dropdown -->
           <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-              <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
-              <div class="dropdown no-arrow">
-                  <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                  </a>
-                  <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                      aria-labelledby="dropdownMenuLink">
-                      <div class="dropdown-header">Dropdown Header:</div>
-                      <a class="dropdown-item" href="#">Action</a>
-                      <a class="dropdown-item" href="#">Another action</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Something else here</a>
-                  </div>
-              </div>
+              <h6 class="m-0 font-weight-bold text-primary">Topup Statastics</h6>
           </div>
           <!-- Card Body -->
           <div class="card-body">
               <div class="chart-pie pt-4 pb-2">
-                  <canvas id="myPieChart"></canvas>
+                  <%= pie_chart @employees, donut: true %>
               </div>
               <div class="mt-4 text-center small">
                   <span class="mr-2">
@@ -101,15 +113,15 @@
       <!-- Project Card Example -->
       <div class="card shadow mb-4">
           <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
+              <h6 class="m-0 font-weight-bold text-primary">Recent Activities</h6>
           </div>
           <div class="card-body">
-              <h4 class="small font-weight-bold">Server Migration <span
+              <!-- <h4 class="small font-weight-bold">Server Migration <span
                       class="float-right">20%</span></h4>
               <div class="progress mb-4">
                   <div class="progress-bar bg-danger" role="progressbar" style="width: 20%"
                       aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
+              </div> -->
               <h4 class="small font-weight-bold">Sales Tracking <span
                       class="float-right">40%</span></h4>
               <div class="progress mb-4">

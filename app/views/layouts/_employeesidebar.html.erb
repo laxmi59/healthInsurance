@@ -44,9 +44,9 @@
         <label>Marital Status:</label><br>
         <div class="btn-group" id="toggle_marital_editing">
           <% if Current.user.marital_status_id == 1 %>
-            <button type="button" class="btn btn-info locked_active">Single</button>
+            <div class="flags-single"></div>
           <% else %>
-            <button type="button" class="btn btn-light unlocked_inactive">Married</button>
+            <div class="flags-married"></div>
           <% end %>
         </div>
       </div>
