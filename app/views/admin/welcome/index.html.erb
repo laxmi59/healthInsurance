@@ -1,6 +1,7 @@
 <div class="row">
   <%#= pie_chart @employees, donut: true%>
   <!-- Earnings (Monthly) Card Example -->
+
   <div class="col-xl-3 col-md-6 mb-4">
     <div class="card border-left-primary shadow h-100 py-2 dashboardUserCount">
       <div class="card-body">
@@ -10,7 +11,7 @@
               <tr>
                 <td><div class="flags-user-optin"></div></td>
                 <td style="vertical-align:top">
-                  <div class="h6 mb-0 font-weight-bold text-gray-800"><%=optinUsers()%></div>
+                  <div class="h6 mb-0 font-weight-bold text-gray-800"><%= Employee.filter_by_optin(1).count%></div>
                   <div> Opted-in users</div>
                 </td>
               </tr>
@@ -29,7 +30,7 @@
               <tr>
                 <td><div class="flags-user-pending"></div></td>
                 <td style="vertical-align:top">
-                  <div class="h6 mb-0 font-weight-bold text-gray-800"><%=pendingUsers()%></div>
+                  <div class="h6 mb-0 font-weight-bold text-gray-800"><%= Employee.filter_by_pending(pendingUsers()).count%></div>
                   <div> Pending</div>
                 </td>
               </tr>
@@ -48,7 +49,7 @@
               <tr>
                 <td><div class="flags-user-optout"></div></td>
                 <td style="vertical-align:top">
-                  <div class="h6 mb-0 font-weight-bold text-gray-800"><%=optOutUsers()%></div>
+                  <div class="h6 mb-0 font-weight-bold text-gray-800"><%= Employee.filter_by_optin(2).count%></div>
                   <div> Opted-Out</div>
                 </td>
               </tr>
@@ -67,7 +68,7 @@
               <tr>
                 <td><div class="flags-users"></div></td>
                 <td style="vertical-align:top">
-                  <div class="h6 mb-0 font-weight-bold text-gray-800"><%=getAllUsers()%></div>
+                  <div class="h6 mb-0 font-weight-bold text-gray-800"><%=getAllUsers().count%></div>
                   <div> Total Employees</div>
                 </td>
               </tr>

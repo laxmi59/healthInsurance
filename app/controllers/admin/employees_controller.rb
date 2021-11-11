@@ -1,8 +1,17 @@
 class Admin::EmployeesController < ApplicationController
   before_action :require_user_logged_in!
   def index
-    @emps = Employee.where("role_id = ?", 2).includes(:role, :location)
+
+    @emps = Employee.where(nil)
+    @emps = Employee.filter_by_optin(params[:optin]) if params[:optin].present?
+
+    empids = helpers.pendingUsers() if params[:pending].present?
+    @emps = Employee.filter_by_pending(empids) if params[:pending].present?
+
+    @emps = helpers.getUsersBySrch(params[:srchquery]) if params[:srchquery].present?
+
   end
+
   def show
     @emp = Employee.find(params[:id])
   end

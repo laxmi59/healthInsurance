@@ -34,6 +34,10 @@ class Employee < ApplicationRecord
   end
   #  end validations for employee account update by employee personal_details
 
+  #scope :filter_by_location, -> (location_id) { where location_id: location_id }
+  scope :filter_by_optin, -> (is_opted) {Employee.joins("INNER JOIN employee_cycles ON employees.id = employee_cycles.employee_id").where("employee_cycles.is_opted = ? and employees.role_id = 2",is_opted) }
+  scope :filter_by_pending, -> (pending) { Employee.where("employees.id not in (?)",pending)}
+
   def employee_role
     self.role ? self.role.name : "N/A"
   end
